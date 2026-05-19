@@ -1,0 +1,48 @@
+x1 = np.random.normal(size=n) 
+生成一个长度为 n 的 NumPy 数组，数组中的元素来自标准正态分布（均值 0，标准差 1）
+
+生成相关正态变量的经典方法
+x1,x2来自标准正态分布
+定义y1=x1,y2=rho*x1+sqrt((1-rho**2)) *x2
+y2的均值还是0，标准差还是1,y1与y2的相关系数为rho
+
+两资产投资组合方差计算公式
+收益率r1，r2
+方差var1，varb2
+权重w1，w2，w1+w2=1
+组合收益率r=w1*r1 + w2*r2
+var=wa**2*vara+wb**2*varb+2*wa*wb*covab
+其中covab=rho(a,b)*var1*var2
+
+寻找最小值，使用minimization函数
+确定所求函数myfunction
+minimization（func目标函数，x0初始点，方法method（nelder-mead不需要导数），tol容忍误差）
+
+快速定义函数lambda function
+基本格式 lambda x:(x[0]-10)**2+(x[1]-25)**2
+带约束的二维优化问题
+bonds=((0,None),(0,None))约束x1，x2
+cons：约束类型（边界约束（bounds，不等式约束（ineq），等式约束（eq）；约束函数fun）
+optimize.brent()求最小值 Brent 一维无约束优化算法
+
+最大化夏普比率
+1.计算年度收益率
+df['logret'] = np.log(df['Close'] / df['Close'].shift(1))
+retannual = np.exp( df['logret'].groupby(df['year']).sum()) - 1
+
+2.计算投资组合方差
+投资组合方差公式σp2​=∑i​∑j​wi​wj​σi​σj​ρij
+rhoij/cor = np.corrcoef(r.T)
+​σi/std_dev = np.std(r, axis=0)
+双重循环得到求和
+
+3.夏普比率的计算
+组合收益率port_return = np.dot(w, mean_return)
+
+4.优化 n−1 个权重
+最后一个权重可由前面推导 w2 = np.append(w, 1-sum(w))
+
+
+
+
+
